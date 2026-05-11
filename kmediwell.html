@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-MediWell 프로젝트 추진단</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #0a4a2e;
+    --green-mid: #1a7a4a;
+    --green-light: #2db87a;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #faf7f0;
+    --cream-dark: #f0ead8;
+    --charcoal: #1e1e1e;
+    --text-muted: #5a5a5a;
+    --white: #ffffff;
+    --border: rgba(10,74,46,0.15);
+    --shadow: 0 4px 24px rgba(10,74,46,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,74,46,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.9rem 2rem;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.3rem;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--white); font-size: 0.8rem; display: block; letter-spacing: 0.08em; font-family: 'Noto Sans KR', sans-serif; font-weight: 300; }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul li a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  nav ul li a:hover { color: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(160deg, rgba(10,74,46,0.92) 0%, rgba(10,74,46,0.75) 50%, rgba(0,0,0,0.6) 100%),
+      url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1600&q=80') center/cover no-repeat;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 6rem 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 60%, rgba(201,168,76,0.08) 0%, transparent 60%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 860px; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.2);
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero-sub {
+    font-family: 'Noto Serif KR', serif;
+    color: rgba(255,255,255,0.85);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .hero-desc {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.9rem;
+    max-width: 600px; margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    padding: 0.8rem 2rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-gold { background: var(--gold); color: var(--green-deep); border: none; }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.5); }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* STATS */
+  .stats-band {
+    background: var(--green-deep);
+    padding: 2rem;
+  }
+  .stats-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+    gap: 0; text-align: center;
+  }
+  .stat-item {
+    padding: 1.2rem 1rem;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 2rem;
+    display: block;
+  }
+  .stat-label { color: rgba(255,255,255,0.65); font-size: 0.8rem; letter-spacing: 0.05em; }
+
+  /* SECTION COMMON */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--green-deep);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 600px;
+    line-height: 1.8;
+  }
+  .divider {
+    width: 48px; height: 3px;
+    background: var(--gold);
+    margin: 1rem 0 2rem;
+  }
+
+  /* ABOUT */
+  #about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .about-img {
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .about-img img { width: 100%; height: 400px; object-fit: cover; display: block; }
+  .about-img::after {
+    content: '';
+    position: absolute; bottom: -16px; right: -16px;
+    width: 80%; height: 80%;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    z-index: -1;
+  }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .tag {
+    background: var(--cream-dark);
+    color: var(--green-deep);
+    font-size: 0.78rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  /* OBJECTIVES */
+  #objectives { background: var(--cream); }
+  .obj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+  .obj-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    border-top: 3px solid var(--green-mid);
+  }
+  .obj-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+  .obj-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: rgba(10,74,46,0.12);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .obj-title { font-weight: 700; color: var(--green-deep); font-size: 1rem; margin-bottom: 0.5rem; }
+  .obj-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* EVALUATION GROUPS */
+  #evaluation { background: var(--green-deep); }
+  #evaluation .section-tag { color: var(--gold-light); }
+  #evaluation .section-title { color: var(--white); }
+  #evaluation .section-desc { color: rgba(255,255,255,0.65); }
+  #evaluation .divider { background: var(--gold); }
+
+  .eval-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+  .eval-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 6px;
+    padding: 2.5rem;
+  }
+  .eval-card-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .eval-icon {
+    width: 48px; height: 48px;
+    background: rgba(201,168,76,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+  }
+  .eval-card-title { color: var(--gold); font-family: 'Noto Serif KR', serif; font-size: 1.1rem; font-weight: 600; }
+  .eval-card-sub { color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.2rem; }
+  .eval-features { list-style: none; }
+  .eval-features li {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.88rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: flex-start; gap: 0.5rem;
+  }
+  .eval-features li::before { content: '◆'; color: var(--gold); font-size: 0.5rem; margin-top: 0.4rem; flex-shrink: 0; }
+
+  /* MEMBERS */
+  #members { background: var(--white); }
+  .member-tabs { display: flex; gap: 0; margin-bottom: 2rem; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; width: fit-content; }
+  .member-tab {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.2s;
+  }
+  .member-tab.active { background: var(--green-deep); color: var(--white); }
+  .member-panel { display: none; }
+  .member-panel.active { display: block; }
+  .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 1.2rem; }
+  .member-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    transition: box-shadow 0.2s;
+  }
+  .member-card:hover { box-shadow: var(--shadow); }
+  .member-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--green-deep);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .member-name { font-weight: 700; font-size: 0.95rem; color: var(--green-deep); }
+  .member-role { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .member-org { font-size: 0.75rem; color: var(--green-mid); margin-top: 0.1rem; }
+  .add-member-btn {
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.5rem;
+    background: transparent;
+    border: 1px dashed var(--green-mid);
+    color: var(--green-mid);
+    border-radius: 4px;
+    font-size: 0.83rem;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.2s;
+  }
+  .add-member-btn:hover { background: rgba(26,122,74,0.06); }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); z-index: 1000;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 2.5rem;
+    width: 100%; max-width: 480px;
+    margin: 1rem;
+    position: relative;
+  }
+  .modal h3 { font-family: 'Noto Serif KR', serif; color: var(--green-deep); margin-bottom: 1.5rem; font-size: 1.1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 500; }
+  .form-group input, .form-group select {
+    width: 100%; padding: 0.65rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 0.88rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--green-mid); }
+  .modal-btns { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
+  .btn-green { background: var(--green-deep); color: var(--white); border: none; }
+  .btn-green:hover { background: var(--green-mid); }
+  .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+  .btn-cancel:hover { background: var(--cream-dark); }
+
+  /* ACHIEVEMENTS */
+  #achievements { background: var(--cream); }
+  .ach-form-area {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .ach-form-area h3 { font-family: 'Noto Serif KR', serif; color: var(--green-deep); margin-bottom: 1.2rem; font-size: 1rem; }
+  .ach-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: end; }
+  .ach-list { display: flex; flex-direction: column; gap: 1rem; }
+  .ach-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--green-mid);
+    border-radius: 0 4px 4px 0;
+    padding: 1.2rem 1.5rem;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    transition: box-shadow 0.2s;
+  }
+  .ach-item:hover { box-shadow: var(--shadow); }
+  .ach-item-main {}
+  .ach-item-title { font-weight: 700; color: var(--green-deep); font-size: 0.95rem; }
+  .ach-item-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem; }
+  .ach-badge {
+    background: rgba(26,122,74,0.1);
+    color: var(--green-mid);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 2px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .ach-del {
+    background: none; border: none; color: rgba(200,0,0,0.4);
+    cursor: pointer; font-size: 0.8rem; margin-left: 0.8rem;
+  }
+  .ach-del:hover { color: red; }
+
+  /* PROJECTS */
+  #projects { background: var(--white); }
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+  .proj-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .proj-card-top { padding: 1.5rem; border-bottom: 1px solid var(--border); }
+  .proj-status {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.7rem;
+    border-radius: 2px;
+    margin-bottom: 0.8rem;
+  }
+  .status-active { background: rgba(26,122,74,0.12); color: var(--green-mid); }
+  .status-plan { background: rgba(201,168,76,0.15); color: #8a6500; }
+  .status-done { background: rgba(90,90,90,0.12); color: var(--text-muted); }
+  .proj-card-title { font-weight: 700; color: var(--green-deep); font-size: 0.95rem; margin-bottom: 0.4rem; }
+  .proj-card-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+  .proj-card-bottom { padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .proj-period { font-size: 0.78rem; color: var(--text-muted); }
+  .proj-lead { font-size: 0.78rem; color: var(--green-mid); font-weight: 500; }
+
+  /* CONTACT */
+  #contact { background: var(--green-deep); }
+  #contact .section-tag { color: var(--gold-light); }
+  #contact .section-title { color: var(--white); }
+  #contact .section-desc { color: rgba(255,255,255,0.65); }
+  #contact .divider { background: var(--gold); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2.5rem; }
+  .contact-info { color: rgba(255,255,255,0.8); }
+  .contact-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+  .contact-icon { color: var(--gold); font-size: 1.1rem; margin-top: 0.1rem; flex-shrink: 0; }
+  .contact-text strong { display: block; color: var(--white); font-size: 0.88rem; margin-bottom: 0.2rem; }
+  .contact-text span { font-size: 0.83rem; color: rgba(255,255,255,0.6); }
+  .contact-form { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 2rem; }
+  .contact-form .form-group input,
+  .contact-form .form-group textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white);
+  }
+  .contact-form .form-group input::placeholder,
+  .contact-form .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+  .contact-form .form-group input:focus,
+  .contact-form .form-group textarea:focus { border-color: var(--gold); }
+  .contact-form .form-group textarea {
+    width: 100%; padding: 0.65rem 0.9rem;
+    border-radius: 3px; font-size: 0.88rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    resize: vertical; min-height: 100px;
+    outline: none;
+  }
+  .contact-form .form-group label { color: rgba(255,255,255,0.7); }
+
+  /* FOOTER */
+  footer {
+    background: #060f08;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  footer p { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+  footer .footer-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .about-grid, .eval-grid, .contact-grid { grid-template-columns: 1fr; }
+    .ach-form { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * { animation: fadeUp 0.7s ease both; }
+  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+  .hero-content > *:nth-child(6) { animation-delay: 0.6s; }
+
+  .notice {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">K-MediWell <span>프로젝트 추진단</span></a>
+    <ul>
+      <li><a href="#about">소개</a></li>
+      <li><a href="#objectives">평가기준</a></li>
+      <li><a href="#evaluation">평가단</a></li>
+      <li><a href="#members">구성원</a></li>
+      <li><a href="#achievements">실적관리</a></li>
+      <li><a href="#projects">추진과제</a></li>
+      <li><a href="#contact">연락처</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">국립공주대학교 스마트의료웰니스관광 대학원</div>
+    <h1><em>K-MediWell</em><br>프로젝트 추진단</h1>
+    <p class="hero-sub">치유관광의 글로컬 브랜드화를 선도합니다</p>
+    <p class="hero-desc">2026년 출범한 국립공주대학교 스마트의료웰니스관광 대학원의 K-MediWell 브랜드를 세계 시장에 알리고, 치유관광 산업의 표준을 만들어 갑니다.</p>
+    <div class="hero-btns">
+      <a href="#about" class="btn btn-gold">추진단 소개</a>
+      <a href="#evaluation" class="btn btn-outline">평가단 구성</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num" id="stat-members">0</span>
+      <span class="stat-label">총 구성원</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-general">0</span>
+      <span class="stat-label">일반 평가단</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-expert">0</span>
+      <span class="stat-label">전문가 평가단</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-ach">0</span>
+      <span class="stat-label">등록 실적</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">2026</span>
+      <span class="stat-label">출범 연도</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80" alt="치유관광 이미지" />
+      </div>
+      <div>
+        <span class="section-tag">About</span>
+        <h2 class="section-title">K-MediWell 브랜드의<br>글로컬화를 이끌다</h2>
+        <div class="divider"></div>
+        <p class="section-desc">
+          국립공주대학교 스마트의료웰니스관광 대학원은 2026년 설립되어, K-MediWell이라는 고유 브랜드를 통해 대한민국 치유관광을 글로벌 시장에 알리는 선도적 역할을 수행합니다.
+        </p>
+        <p class="section-desc" style="margin-top:1rem;">
+          본 추진단은 소비자 중심의 치유관광 평가 체계를 구축하고, 국내외 네트워크 형성과 함께 K-MediWell 브랜드의 국제 경쟁력을 강화합니다.
+        </p>
+        <div class="about-tags">
+          <span class="tag">치유관광</span>
+          <span class="tag">웰니스</span>
+          <span class="tag">스마트의료</span>
+          <span class="tag">글로컬 브랜딩</span>
+          <span class="tag">소비자 평가</span>
+          <span class="tag">국제협력</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 평가기준 -->
+<section id="objectives">
+  <div class="container">
+    <span class="section-tag">Evaluation Standards · 평가기준</span>
+    <h2 class="section-title">K-MediWell 치유관광<br>평가기준</h2>
+    <div class="divider"></div>
+    <p class="section-desc">K-MediWell 치유관광 평가단은 4가지 학술적·법적 근거를 바탕으로 전문성과 공신력을 갖춘 평가를 수행합니다.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem;">
+
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+        <div style="background:var(--green-deep);padding:1rem 1.5rem;display:flex;align-items:center;gap:0.8rem;">
+          <span style="background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.85);font-size:0.68rem;letter-spacing:0.1em;padding:0.25rem 0.7rem;border-radius:2px;white-space:nowrap;">학술 근거 1</span>
+          <span style="font-family:'Noto Serif KR',serif;color:var(--white);font-size:1.05rem;font-weight:600;">브레인 에너지 이론</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="margin-bottom:0.8rem;">
+            <div style="font-weight:700;color:var(--green-deep);font-size:0.9rem;">크리스토퍼 팔머 교수</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);">하버드대학교 의과대학 신경의학과</div>
+          </div>
+          <p style="font-size:0.85rem;color:var(--charcoal);line-height:1.85;">
+            팔머 교수의 저서 <strong>Brain Energy(2022)</strong>는 뇌의 미토콘드리아 에너지 대사 기능이 정신·신체 건강의 핵심임을 규명합니다. 치유관광 체험이 뇌 에너지 균형 회복에 미치는 영향을 평가 지표로 체계화함으로써, 평가단은 단순 만족도 조사를 넘어 신경과학 기반의 치유 효과 측정 역량을 갖춥니다. 자연환경, 식이, 수면, 신체 활동, 스트레스 감소 등 치유관광의 6대 요소가 뇌 에너지 회복에 미치는 작용을 평가 준거로 활용합니다.
+          </p>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+        <div style="background:#2a5f3a;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.8rem;">
+          <span style="background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.85);font-size:0.68rem;letter-spacing:0.1em;padding:0.25rem 0.7rem;border-radius:2px;white-space:nowrap;">학술 근거 2</span>
+          <span style="font-family:'Noto Serif KR',serif;color:var(--white);font-size:1.05rem;font-weight:600;">오정법 (五正法)</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="margin-bottom:0.8rem;">
+            <div style="font-weight:700;color:#2a5f3a;font-size:0.9rem;">전세일 이사장</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);">사단법인 자연치유관광포럼</div>
+          </div>
+          <p style="font-size:0.85rem;color:var(--charcoal);line-height:1.85;">
+            전세일 이사장이 정립한 오정법은 <strong>정식(正食)·정수(正水)·정동(正動)·정심(正心)·정환(正環)</strong>의 다섯 가지 바른 실천을 통해 자연치유력을 극대화하는 통합 건강관리 프레임워크입니다. 치유관광 프로그램의 콘텐츠 완성도와 자연치유력 촉진 효과를 오정법 5개 축으로 분류하여 정성·정량 평가를 병행합니다. 이는 동양 자연의학의 지혜를 현대 관광 평가 체계에 접목한 독창적 방법론으로, K-MediWell 브랜드의 차별성을 확보합니다.
+          </p>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+        <div style="background:#1a3a5c;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.8rem;">
+          <span style="background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.85);font-size:0.68rem;letter-spacing:0.1em;padding:0.25rem 0.7rem;border-radius:2px;white-space:nowrap;">과학적 측정 도구</span>
+          <span style="font-family:'Noto Serif KR',serif;color:var(--white);font-size:1.05rem;font-weight:600;">뇌과학 기반 뉴로피드백</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="margin-bottom:0.8rem;">
+            <div style="font-weight:700;color:#1a3a5c;font-size:0.9rem;">뉴로하모니(NeuroHarmony) EEG 시스템</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);">K-MediWell 연구기구 적용 기술</div>
+          </div>
+          <p style="font-size:0.85rem;color:var(--charcoal);line-height:1.85;">
+            뉴로피드백(Neurofeedback)은 뇌파(EEG) 데이터를 실시간으로 측정·분석하여 뇌의 자기조절 능력 회복 여부를 객관적으로 확인하는 신경과학 기술입니다. 치유관광 체험 전·후 평가단원의 뇌파 변화(알파·세타파·베타파)를 뉴로하모니 시스템으로 측정함으로써 치유 효과의 과학적 근거를 실증화합니다. 이는 오정법의 치유 효과를 실증적으로 검증하는 핵심 측정 도구로 기능합니다.
+          </p>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+        <div style="background:#5a3a1a;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.8rem;">
+          <span style="background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.85);font-size:0.68rem;letter-spacing:0.1em;padding:0.25rem 0.7rem;border-radius:2px;white-space:nowrap;">법적 근거</span>
+          <span style="font-family:'Noto Serif KR',serif;color:var(--white);font-size:1.05rem;font-weight:600;">디지털의료기기법 기반 평가</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="margin-bottom:0.8rem;">
+            <div style="font-weight:700;color:#5a3a1a;font-size:0.9rem;">디지털의료제품법</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);">식품의약품안전처 소관, 2023년 시행</div>
+          </div>
+          <p style="font-size:0.85rem;color:var(--charcoal);line-height:1.85;">
+            디지털의료제품법은 소프트웨어 의료기기(SaMD) 및 디지털 헬스케어 기기의 안전성·유효성 기준을 법적으로 규정합니다. 본 평가단은 치유관광 시설·서비스에서 활용되는 디지털의료기기(뇌파 측정기, 생체신호 모니터링 기기, 디지털 치료제 등)의 적법한 사용 여부, 인증 상태, 이용자 안전 보호 수준을 동법 기준에 따라 평가합니다. 이를 통해 치유관광의 의료·헬스케어 신뢰성을 법제도적으로 담보합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.5rem;padding:1.4rem 1.8rem;background:var(--green-deep);border-radius:6px;display:flex;gap:1rem;align-items:flex-start;">
+      <span style="font-size:1.3rem;flex-shrink:0;margin-top:0.1rem;">🔗</span>
+      <p style="font-size:0.87rem;color:rgba(255,255,255,0.9);line-height:1.85;margin:0;">
+        위 4가지 근거는 상호 보완적으로 작동합니다.
+        <strong style="color:var(--gold-light);">브레인 에너지 이론</strong>이 치유의 과학적 메커니즘을 설명하고,
+        <strong style="color:var(--gold-light);">오정법</strong>이 치유관광 콘텐츠의 철학적 준거를 제공하며,
+        <strong style="color:var(--gold-light);">뉴로피드백</strong>이 효과를 실측하고,
+        <strong style="color:var(--gold-light);">디지털의료기기법</strong>이 안전성을 법적으로 보증합니다.
+        이 4종 기반이 K-MediWell 치유관광평가단의 전문성과 공신력을 결정합니다.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- EVALUATION GROUPS -->
+<section id="evaluation">
+  <div class="container">
+    <span class="section-tag">Evaluation Groups</span>
+    <h2 class="section-title">치유관광 평가단 구성</h2>
+    <div class="divider"></div>
+    <p class="section-desc">소비자 관점과 전문가 관점을 결합한 이중 평가 체계로 K-MediWell 치유관광 상품의 신뢰성을 높입니다.</p>
+
+    <div class="eval-grid">
+      <!-- 일반 평가단 -->
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <div class="eval-icon">🌿</div>
+          <div>
+            <div class="eval-card-title">일반 평가단</div>
+            <div class="eval-card-sub">소비자 체험 중심 평가 · General Panel</div>
+          </div>
+        </div>
+        <ul class="eval-features">
+          <li>국내외 치유관광 일반 소비자로 구성</li>
+          <li>치유관광 상품의 만족도 및 체험 품질 평가</li>
+          <li>숙박, 식음료, 프로그램 접근성 평가</li>
+          <li>재방문 의향 및 추천 의향 측정</li>
+          <li>외국인 소비자 포함 다국적 평가단 운영</li>
+          <li>온·오프라인 혼합 평가 방식 적용</li>
+          <li>분기별 정기 평가 및 수시 체험 평가</li>
+        </ul>
+      </div>
+
+      <!-- 전문가 평가단 -->
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <div class="eval-icon">🔬</div>
+          <div>
+            <div class="eval-card-title">전문가 평가단</div>
+            <div class="eval-card-sub">제품 및 프로그램 전문 평가 · Expert Panel</div>
+          </div>
+        </div>
+        <ul class="eval-features">
+          <li>의료·웰니스·관광 분야 전문가로 구성</li>
+          <li>치유관광 상품의 의과학적 효과성 검증</li>
+          <li>안전성·위생·시설 기준 적합성 심사</li>
+          <li>국제 웰니스 표준 대비 품질 수준 평가</li>
+          <li>K-MediWell 인증 기준 설정 및 심의</li>
+          <li>연구 및 임상 데이터 기반 객관적 평가</li>
+          <li>연 1회 이상 정기 인증 심사 운영</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERS -->
+<section id="members">
+  <div class="container">
+    <span class="section-tag">Members</span>
+    <h2 class="section-title">추진위원 및 평가단 명단</h2>
+    <div class="divider"></div>
+    <p class="section-desc">K-MediWell 프로젝트를 이끌어 가는 추진위원 및 평가단 구성원입니다. 명단은 지속적으로 업데이트됩니다.</p>
+
+    <div class="member-tabs" style="margin-top:2rem;">
+      <button class="member-tab active" onclick="switchTab(event,'tab-committee')">추진위원회</button>
+      <button class="member-tab" onclick="switchTab(event,'tab-general')">일반 평가단</button>
+      <button class="member-tab" onclick="switchTab(event,'tab-expert')">전문가 평가단</button>
+    </div>
+
+    <!-- 추진위원회 -->
+    <div class="member-panel active" id="tab-committee">
+      <div class="member-grid" id="grid-committee">
+        <!-- JS로 렌더링 -->
+      </div>
+      <button class="add-member-btn" onclick="openAddModal('committee')">+ 위원 추가</button>
+    </div>
+
+    <!-- 일반 평가단 -->
+    <div class="member-panel" id="tab-general">
+      <div class="member-grid" id="grid-general"></div>
+      <button class="add-member-btn" onclick="openAddModal('general')">+ 평가단원 추가</button>
+    </div>
+
+    <!-- 전문가 평가단 -->
+    <div class="member-panel" id="tab-expert">
+      <div class="member-grid" id="grid-expert"></div>
+      <button class="add-member-btn" onclick="openAddModal('expert')">+ 평가단원 추가</button>
+    </div>
+
+    <div class="notice">※ 명단은 추진단 담당자가 직접 추가·수정할 수 있습니다. 새로고침 시 초기화됩니다 (실 서비스 시 DB 연동 필요).</div>
+  </div>
+</section>
+
+<!-- 멤버 추가 모달 -->
+<div class="modal-overlay" id="member-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('member-modal')">✕</button>
+    <h3 id="modal-title">구성원 추가</h3>
+    <input type="hidden" id="modal-group" value="">
+    <div class="form-group">
+      <label>이름</label>
+      <input type="text" id="m-name" placeholder="홍길동" />
+    </div>
+    <div class="form-group">
+      <label>직위 / 역할</label>
+      <input type="text" id="m-role" placeholder="단장 / 부단장 / 평가위원 등" />
+    </div>
+    <div class="form-group">
+      <label>소속 기관</label>
+      <input type="text" id="m-org" placeholder="국립공주대학교" />
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-green" onclick="addMember()">추가</button>
+      <button class="btn btn-cancel" onclick="closeModal('member-modal')">취소</button>
+    </div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <span class="section-tag">Achievements</span>
+    <h2 class="section-title">실적 관리</h2>
+    <div class="divider"></div>
+    <p class="section-desc">논문, 특허, 보고서, 사업화, 수상 등 다양한 성과를 등록하고 관리합니다.</p>
+
+    <div class="ach-form-area" style="margin-top:2rem;">
+      <h3>📋 실적 등록</h3>
+      <div class="ach-form">
+        <div class="form-group" style="margin:0;">
+          <label>실적 제목</label>
+          <input type="text" id="ach-title" placeholder="예: K-MediWell 치유관광 효과성 연구 논문 게재" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>유형</label>
+          <select id="ach-type">
+            <option>논문</option>
+            <option>특허</option>
+            <option>정책 보고서</option>
+            <option>사업화</option>
+            <option>수상·인증</option>
+            <option>협약·MOU</option>
+            <option>언론보도</option>
+            <option>행사·학술대회</option>
+            <option>기타</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:flex-end;">
+          <div class="form-group" style="margin:0;">
+            <label>날짜</label>
+            <input type="date" id="ach-date" />
+          </div>
+          <button class="btn btn-gold" style="height:38px;white-space:nowrap;" onclick="addAchievement()">등록</button>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:0.8rem;">
+        <label>상세 내용 (선택)</label>
+        <input type="text" id="ach-desc" placeholder="추가 설명을 입력하세요" />
+      </div>
+    </div>
+
+    <div class="ach-list" id="ach-list">
+      <!-- JS 렌더링 -->
+    </div>
+    <div class="notice" id="ach-empty" style="text-align:center;padding:2rem;">등록된 실적이 없습니다. 위 양식으로 첫 번째 실적을 등록해 보세요.</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <span class="section-tag">Projects</span>
+    <h2 class="section-title">주요 추진 과제</h2>
+    <div class="divider"></div>
+    <p class="section-desc">K-MediWell 브랜드 글로컬화를 위한 핵심 과제입니다.</p>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-card-top">
+          <span class="proj-status status-active">진행 중</span>
+          <div class="proj-card-title">K-MediWell 브랜드 매뉴얼 개발</div>
+          <p class="proj-card-desc">국내외 치유관광 시장에서 통용 가능한 K-MediWell 브랜드 아이덴티티 및 가이드라인을 개발합니다.</p>
+        </div>
+        <div class="proj-card-bottom">
+          <span class="proj-period">2026.03 ~ 2026.12</span>
+          <span class="proj-lead">브랜딩 분과</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-card-top">
+          <span class="proj-status status-active">진행 중</span>
+          <div class="proj-card-title">치유관광 소비자 평가 모델 구축</div>
+          <p class="proj-card-desc">일반 평가단을 활용한 소비자 체험 평가 지표 및 측정 도구를 개발하고 시범 운영합니다.</p>
+        </div>
+        <div class="proj-card-bottom">
+          <span class="proj-period">2026.04 ~ 2027.03</span>
+          <span class="proj-lead">평가연구 분과</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-card-top">
+          <span class="proj-status status-active">진행 중</span>
+          <div class="proj-card-title">K-MediWell 인증제도 설계</div>
+          <p class="proj-card-desc">전문가 평가단 기반의 치유관광 상품 인증 기준 및 절차를 설계하고 시범 인증을 실시합니다.</p>
+        </div>
+        <div class="proj-card-bottom">
+          <span class="proj-period">2026.06 ~ 2027.06</span>
+          <span class="proj-lead">전문가 평가단</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-card-top">
+          <span class="proj-status status-plan">계획</span>
+          <div class="proj-card-title">국제 치유관광 포럼 개최</div>
+          <p class="proj-card-desc">아시아 치유관광 전문가 네트워크를 형성하고 K-MediWell 모델을 국제 사회에 소개합니다.</p>
+        </div>
+        <div class="proj-card-bottom">
+          <span class="proj-period">2027.05</span>
+          <span class="proj-lead">국제협력 분과</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-card-top">
+          <span class="proj-status status-plan">계획</span>
+          <div class="proj-card-title">글로벌 치유관광 콘텐츠 개발</div>
+          <p class="proj-card-desc">외국어 홍보 콘텐츠 및 온라인 플랫폼을 구축하여 K-MediWell의 해외 인지도를 제고합니다.</p>
+        </div>
+        <div class="proj-card-bottom">
+          <span class="proj-period">2026.09 ~ 2027.06</span>
+          <span class="proj-lead">홍보 분과</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-card-top">
+          <span class="proj-status status-plan">계획</span>
+          <div class="proj-card-title">산학연 협력 네트워크 구축</div>
+          <p class="proj-card-desc">의료기관, 관광기업, 지자체, 연구기관과의 협력 체계를 구축하여 치유관광 생태계를 확장합니다.</p>
+        </div>
+        <div class="proj-card-bottom">
+          <span class="proj-period">2026.05 ~ 상시</span>
+          <span class="proj-lead">협력 분과</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="section-tag">Contact</span>
+    <h2 class="section-title">연락처 및 문의</h2>
+    <div class="divider"></div>
+    <p class="section-desc">K-MediWell 프로젝트 참여 및 협력에 관심 있으시면 언제든지 연락 주십시오.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <span class="contact-icon">🏛️</span>
+          <div class="contact-text">
+            <strong>소속</strong>
+            <span>국립공주대학교 스마트의료웰니스관광 대학원<br>K-MediWell 프로젝트 추진단</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <div class="contact-text">
+            <strong>주소</strong>
+            <span>충청남도 공주시 공주대학로 56<br>국립공주대학교</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📧</span>
+          <div class="contact-text">
+            <strong>이메일</strong>
+            <span>kmediwell@kongju.ac.kr</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📞</span>
+          <div class="contact-text">
+            <strong>전화</strong>
+            <span>041-850-0000</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-group">
+          <label>성함</label>
+          <input type="text" placeholder="이름을 입력하세요" />
+        </div>
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" placeholder="이메일 주소" />
+        </div>
+        <div class="form-group">
+          <label>소속</label>
+          <input type="text" placeholder="기관 / 회사명" />
+        </div>
+        <div class="form-group">
+          <label>문의 내용</label>
+          <textarea placeholder="평가단 참여, 협력 제안, 기타 문의 내용을 입력하세요."></textarea>
+        </div>
+        <button class="btn btn-gold" style="width:100%;justify-content:center;" onclick="alert('문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.')">문의 보내기</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">K-MediWell</div>
+  <p>© 2026 국립공주대학교 스마트의료웰니스관광 대학원 · K-MediWell 프로젝트 추진단. All rights reserved.</p>
+  <p style="margin-top:0.4rem;">충청남도 공주시 공주대학로 56, 국립공주대학교</p>
+</footer>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const members = {
+  committee: [
+    { name: '(단장명)', role: '추진단장', org: '국립공주대학교' },
+    { name: '(부단장명)', role: '부단장', org: '국립공주대학교' },
+    { name: '(위원명)', role: '추진위원', org: '국립공주대학교' },
+  ],
+  general: [
+    { name: '(평가단장)', role: '일반평가단장', org: '소비자단체' },
+    { name: '(평가원)', role: '평가단원', org: '일반 소비자' },
+  ],
+  expert: [
+    { name: '(전문가)', role: '평가단장', org: '의료기관' },
+    { name: '(전문가)', role: '의학전문가', org: '대학병원' },
+    { name: '(전문가)', role: '관광전문가', org: '한국관광공사' },
+  ]
+};
+
+const achievements = [];
+
+// ─── RENDER MEMBERS ──────────────────────────────────────────────────────────
+function getInitials(name) {
+  if (!name) return '?';
+  return name.length >= 2 ? name.slice(0, 2) : name;
+}
+
+function renderMembers() {
+  ['committee','general','expert'].forEach(group => {
+    const grid = document.getElementById('grid-' + group);
+    grid.innerHTML = members[group].map((m, i) => `
+      <div class="member-card">
+        <div class="member-avatar">${getInitials(m.name)}</div>
+        <div>
+          <div class="member-name">${m.name}</div>
+          <div class="member-role">${m.role}</div>
+          <div class="member-org">${m.org}</div>
+        </div>
+        <button style="margin-left:auto;background:none;border:none;color:rgba(200,0,0,0.35);cursor:pointer;font-size:0.85rem;" onclick="removeMember('${group}',${i})">✕</button>
+      </div>
+    `).join('');
+  });
+  updateStats();
+}
+
+function removeMember(group, idx) {
+  members[group].splice(idx, 1);
+  renderMembers();
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────────
+function switchTab(e, tabId) {
+  document.querySelectorAll('.member-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.member-panel').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+// ─── MODAL ────────────────────────────────────────────────────────────────
+function openAddModal(group) {
+  const titles = { committee:'추진위원 추가', general:'일반 평가단원 추가', expert:'전문가 평가단원 추가' };
+  document.getElementById('modal-title').textContent = titles[group] || '구성원 추가';
+  document.getElementById('modal-group').value = group;
+  document.getElementById('m-name').value = '';
+  document.getElementById('m-role').value = '';
+  document.getElementById('m-org').value = '';
+  document.getElementById('member-modal').classList.add('open');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function addMember() {
+  const group = document.getElementById('modal-group').value;
+  const name = document.getElementById('m-name').value.trim();
+  const role = document.getElementById('m-role').value.trim();
+  const org = document.getElementById('m-org').value.trim();
+  if (!name) { alert('이름을 입력해 주세요.'); return; }
+  members[group].push({ name, role: role || '구성원', org: org || '' });
+  renderMembers();
+  closeModal('member-modal');
+}
+
+// ─── ACHIEVEMENTS ─────────────────────────────────────────────────────────
+function addAchievement() {
+  const title = document.getElementById('ach-title').value.trim();
+  const type = document.getElementById('ach-type').value;
+  const date = document.getElementById('ach-date').value;
+  const desc = document.getElementById('ach-desc').value.trim();
+  if (!title) { alert('실적 제목을 입력해 주세요.'); return; }
+  achievements.unshift({ title, type, date: date || '날짜 미정', desc });
+  document.getElementById('ach-title').value = '';
+  document.getElementById('ach-desc').value = '';
+  renderAchievements();
+}
+
+function removeAchievement(idx) {
+  achievements.splice(idx, 1);
+  renderAchievements();
+}
+
+function renderAchievements() {
+  const list = document.getElementById('ach-list');
+  const empty = document.getElementById('ach-empty');
+  if (achievements.length === 0) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    list.innerHTML = achievements.map((a, i) => `
+      <div class="ach-item">
+        <div class="ach-item-main">
+          <div class="ach-item-title">${a.title}</div>
+          <div class="ach-item-meta">${a.date}${a.desc ? ' · ' + a.desc : ''}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
+          <span class="ach-badge">${a.type}</span>
+          <button class="ach-del" onclick="removeAchievement(${i})">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  updateStats();
+}
+
+// ─── STATS ────────────────────────────────────────────────────────────────
+function updateStats() {
+  const total = members.committee.length + members.general.length + members.expert.length;
+  animateNum('stat-members', total);
+  animateNum('stat-general', members.general.length);
+  animateNum('stat-expert', members.expert.length);
+  animateNum('stat-ach', achievements.length);
+}
+
+function animateNum(id, target) {
+  const el = document.getElementById(id);
+  const current = parseInt(el.textContent) || 0;
+  const step = target > current ? 1 : -1;
+  if (current === target) return;
+  let v = current;
+  const t = setInterval(() => {
+    v += step;
+    el.textContent = v;
+    if (v === target) clearInterval(t);
+  }, 40);
+}
+
+// ─── CLOSE MODAL ON OVERLAY CLICK ─────────────────────────────────────────
+document.getElementById('member-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal('member-modal');
+});
+
+// ─── INIT ─────────────────────────────────────────────────────────────────
+renderMembers();
+renderAchievements();
+</script>
+</body>
+</html>
